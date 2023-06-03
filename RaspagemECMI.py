@@ -8,7 +8,7 @@ import pandas as pd
 import re
 # para funcionar com a versão cloud do streamlit:
 from webdriver_manager.firefox import GeckoDriverManager
-driver = webdriver.Firefox(executable_path=GeckoDriverManager().install()
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 
 
 def main():
