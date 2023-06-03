@@ -16,9 +16,7 @@ def main():
     #options.add_argument("--headless") # Garante que o GUI (interface do usuario) esta desligado
     #driver = webdriver.Firefox(options=options) # usa o path padrao do geckodriver
     
-    # para funcionar com a versão cloud do streamlit:
-    from webdriver_manager.firefox import GeckoDriverManager
-    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install()
+    # para funcionar com a versão cloud do streamlit
 
 
     url = "https://ecmi.fgv.br/corpo-docente"
@@ -112,11 +110,15 @@ def main():
                         st.write(f"Veja no site do corpo docente da ECMI: {link}")
                     # adiciona um dicionario com os dados do professor atual à lista dados, que inclui o nome, bullet points e email.
                     dados.append({"Nome": nome, "Sentenças": bullet_points, "Email": email})
-
-            driver.quit() # fechando a janela do browser controlada por selenium
             
             df = pd.DataFrame(dados) # cria um dataframe de pandas da lista de dados
             df.to_csv("scraped_data.csv", index=False) # sem indice, (0, 1, 2 nas colunas)
 
-if __name__ == "__main__": # codigo conveniente para utilizar em aplicações streamlit, onde funciona se o script é chamado diretamente e não importado como módulo, não é stritamente necessário utilizar.
+  # codigo conveniente para utilizar em aplicações streamlit, onde funciona se o script é chamado diretamente e não importado como módulo, não é stritamente necessário utilizar.
+if __name__ == "__main__":
+    subprocess.check_call(["pip", "install", "selenium"])
+    options = webdriver.FirefoxOptions()
+    options.add_argument("--headless")
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
     main()
+    driver.quit() # fechando a janela do browser controlada por selenium
