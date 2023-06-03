@@ -1,3 +1,4 @@
+import subprocess
 import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -5,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import re
+subprocess.check_call(["pip", "install", "selenium"]) # para o streamlit instalar os pacotes de selenium.
+
 
 def main():
     options = webdriver.FirefoxOptions()
