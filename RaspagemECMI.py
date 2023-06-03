@@ -10,9 +10,13 @@ subprocess.check_call(["pip", "install", "selenium"]) # para o streamlit instala
 
 
 def main():
-    options = webdriver.FirefoxOptions()
-    options.add_argument("--headless") # Garante que o GUI (interface do usuario) esta desligado
-    driver = webdriver.Firefox(options=options) # usa o path padrao do geckodriver
+    #options = webdriver.FirefoxOptions()
+    #options.add_argument("--headless") # Garante que o GUI (interface do usuario) esta desligado
+    #driver = webdriver.Firefox(options=options) # usa o path padrao do geckodriver
+    
+    # para funcionar com a versão cloud do streamlit:
+    from webdriver_manager.firefox import GeckoDriverManager
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install()
 
 
     url = "https://ecmi.fgv.br/corpo-docente"
