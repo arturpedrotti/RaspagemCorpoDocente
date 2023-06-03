@@ -9,7 +9,6 @@ import re
 # para funcionar com a versão cloud do streamlit:
 from webdriver_manager.firefox import GeckoDriverManager
 driver = webdriver.Firefox(executable_path=GeckoDriverManager().install()
-subprocess.check_call(["pip", "install", "selenium"]) # para o streamlit instalar os pacotes de selenium.
 
 
 def main():
