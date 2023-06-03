@@ -119,6 +119,7 @@ if __name__ == "__main__":
     subprocess.check_call(["pip", "install", "selenium"])
     options = webdriver.FirefoxOptions()
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
     driver = webdriver.Firefox(executable_path=GeckoDriverManager(firefox_version="91.0", version="0.30.0").install(), options=options)
     main()
     driver.quit() # fechando a janela do browser controlada por selenium
