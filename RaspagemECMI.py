@@ -97,10 +97,10 @@ def main():
                         # sequencia de chamadas st.write() que criam elementos texto na segunda coluna que incluem o nome do prof, os bullet points, email do prof, e o link para o perfil deles no site do corpo docente da ecmi.
                         st.write(f"Informações sobre {nome}:") 
                         for bullet in bullet_points:
-                            st.write("- " + bullet.capitalize())
-                        if email != "ecmi@fgv.br":
+                            st.write("- " + bullet.capitalize()) # o loop navega através de cada item na lista bullet_points, e coloca - na frente com o início da frase capitalizada.
+                        if email != "ecmi@fgv.br": # Caso o integrante não tenha um email, o email não é escrito na aplicação streamlit. Se o integrante não tiver um email o valor depois do malif é ecmi@fgv.br, então se não for isso, ele demostra o email.
                             st.write(f"Email: {email}")
-                        st.write(f"Veja no site do corpo docente da ECMI: {link}")
+                        st.write(f"Veja no site do corpo docente da ECMI: {link}") # Escreve o link da página do corpo docente do ECMI caso o usuário queira ver o perfil do integrante no site oficial.
                     # adiciona um dicionario com os dados do professor atual à lista dados, que inclui o nome, bullet points e email.
                     dados.append({"Nome": nome, "Sentenças": bullet_points, "Email": email})
 
