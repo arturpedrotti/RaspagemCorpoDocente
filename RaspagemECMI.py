@@ -82,7 +82,7 @@ def main():
                     bullet_points = [] # outro modo de criar lista vazia
                     keyword_found = False # Inicia uma variavel booleana para acompanhar se uma frase que contem uma frase chave foi achada.
                     for sentence in sentences: # itera sobre cada frase dentro da lista sentences que contem frases extraido da informação dos integrantes
-                        # Checa para ver se qualquer valor chave dentro do keyword.txt esta na frase atual (tudo em lowercase), se for achado a frase é apended à lista bullet_points, e a variavel booleana keyword_found vira True.
+                        # Checa para ver se qualquer valor chave dentro do keyword.txt esta na frase atual (tudo convertido para lowercase), se for achado a frase é apended à lista bullet_points, e a variavel booleana keyword_found vira True.
                         if any(keyword in sentence.lower() for keyword in keywords): 
                             bullet_points.append(sentence.strip())
                             keyword_found = True
