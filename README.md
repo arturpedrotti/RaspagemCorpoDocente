@@ -10,7 +10,7 @@ Antes de começar, verifique se tem instalados os seguintes programas:
 
 E o seguinte browser:
 
-- [Firefox]([https://www.mozilla.org/en-US/firefox/new/)
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 
 Se você não tiver, clique nos links para instalar.
 
