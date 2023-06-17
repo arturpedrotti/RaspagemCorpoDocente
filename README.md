@@ -8,7 +8,12 @@ Antes de começar, verifique se tem instalados os seguintes programas:
 - [Python](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/installation/)
 
+E o seguinte browser:
+
+- [Firefox]([https://www.mozilla.org/en-US/firefox/new/)
+
 Se você não tiver, clique nos links para instalar.
+
 
 ### Windows
 
