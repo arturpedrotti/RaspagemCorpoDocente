@@ -4,21 +4,6 @@
 
 ---
 
-<a href="javascript:void(0);" onclick="executeScript()" style="display:inline-block;background-color:green;color:white;padding:10px 20px;text-decoration:none;">Click here to install and run the Streamlit app</a>
-
-<script>
-function executeScript() {
-  var scriptUrl = 'https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh';
-  var scriptName = 'executable.sh';
-
-  var link = document.createElement('a');
-  link.href = scriptUrl;
-  link.download = scriptName;
-  link.click();
-}
-</script>
-
-
 
 ### Para baixar os Pré-requisitos manualmente:
 
