@@ -1,6 +1,6 @@
 ## Instruções para execução local do projeto
 
-[![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh)
+[![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://gist.github.com/arturpedrotti/d4eb5d72066d21d966b026edd86d8b44)
 
 ---
 
