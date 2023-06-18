@@ -23,6 +23,7 @@ def app(): # Define a função principal do aplicativo.
     elements = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".field-content.mb-0 a[href^='/integrante/']")))
 
     unique_cargos = set()  # Cria um conjunto vazio para armazenar cargos únicos
+    
     # extraindo o texto de cada elemento na lista (convertendo para minúsculas e removendo espaços extras) e coletando todos os valores únicos desses textos.
     for element in elements:
         cargo = element.get_attribute('innerHTML').lower().strip()  # Remove espaços em branco no início e no fim
