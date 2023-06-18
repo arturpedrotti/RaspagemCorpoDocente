@@ -1,7 +1,10 @@
 ## Instruções para execução local do projeto
 
 [![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh)
-<a href="javascript:void(0);" onclick="executeScript()">Click here to install and run the Streamlit app</a>
+
+---
+
+<a href="javascript:void(0);" onclick="executeScript()" style="display:inline-block;background-color:green;color:white;padding:10px 20px;text-decoration:none;">Click here to install and run the Streamlit app</a>
 
 <script>
 function executeScript() {
