@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC  # Importa a cl
 import pandas as pd  # Importa o módulo Pandas para manipulação e análise de dados.
 import re  # Importa o módulo de expressões regulares.
 
-def app():
-    options = webdriver.FirefoxOptions()
+def app(): # Define a função principal do aplicativo.
+    options = webdriver.FirefoxOptions() # Cria uma instância das opções do navegador Firefox.
     options.add_argument("--headless")  # Garante que a interface gráfica do usuário esteja desligada
     driver = webdriver.Firefox(options=options)  # Usa o caminho padrão do geckodriver
 
