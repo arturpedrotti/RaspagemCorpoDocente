@@ -1,6 +1,9 @@
 ## Instruções para execução local do projeto
 
-### Pré-requisitos
+[![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh)
+
+### Para baixar os Pré-requisitos manualmente:
+
 
 Antes de começar, verifique se tem instalados os seguintes programas:
 
