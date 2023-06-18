@@ -46,7 +46,7 @@ Abra o Prompt de Comando (CMD) ou PowerShell.
 5. Comece o Streamlit:
 
     ```shell
-    streamlit run RaspagemECMI.py
+    streamlit run raspagemMain.py
     ```
 
 ### MacOS e Linux
@@ -80,7 +80,7 @@ Abra o Terminal.
 5. Comece o Streamlit:
 
     ```shell
-    streamlit run RaspagemECMI.py
+    streamlit run raspagemMain.py
     ```
 
 Por favor, substitua "seu_nome" pelo nome do seu usuário no sistema operacional.
