@@ -7,76 +7,90 @@ import pandas as pd
 import re
 
 def app():
-    # Configura as opções do webdriver para o Firefox
     options = webdriver.FirefoxOptions()
-    options.add_argument("--headless")  # Garante que o GUI (interface do usuário) esteja desligado
-    driver = webdriver.Firefox(options=options)  # Inicializa o driver do Firefox
+    options.add_argument("--headless")  # Garante que a interface gráfica do usuário esteja desligada
+    driver = webdriver.Firefox(options=options)  # Usa o caminho padrão do geckodriver
 
-    url = "https://emap.fgv.br/pessoas"
+    url = "https://ecmi.fgv.br/corpo-docente"
     driver.get(url)  # Navega até o site
 
-    teachers = dict()  # Cria um dicionário vazio para armazenar os professores
+    wait = WebDriverWait(driver, 10)  # Espera por até 10 segundos até que ocorra uma exceção de tempo esgotado. Um total de 20 tentativas, pois ele verifica a condição a cada 500ms por padrão.
 
-    # Encontra os elementos no site que correspondem ao seletor CSS e armazena-os na variável 'elements'
-    elements = driver.find_elements(By.CSS_SELECTOR, "a[href^='/professores/']")
+    teachers = dict()  # Cria um dicionário vazio para salvar os nomes dos professores
 
-    # Itera sobre cada elemento na lista 'elements'
+    # Encontra todos os elementos com as classes ".field-content.mb-0 a[href^='/integrante/']"
+    # dentro de uma tag <a> cujo atributo href começa com "/integrante/"
+    elements = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".field-content.mb-0 a[href^='/integrante/']")))
+
+    unique_cargos = set()  # Cria um conjunto vazio para armazenar cargos únicos
+
     for element in elements:
-        # Extrai o nome do professor da última parte do link
-        name = element.get_attribute('href').split('/')[-1]
-        name = name.replace("-", " ").title()  # Substitui os hifens por espaços e capitaliza o nome
-        teachers[name] = element.get_attribute('href')  # Adiciona o nome e o link do professor ao dicionário 'teachers'
+        cargo = element.get_attribute('innerHTML').lower().strip()  # Remove espaços em branco no início e no fim
+        unique_cargos.add(cargo)
+
+    # Usa a função de markdown do Streamlit para exibir uma string HTML com o maior cabeçalho <h1> centralizado e azul
+    st.markdown("<h1 style='text-align: center; color: blue;'>FGV ECMI</h1>", unsafe_allow_html=True)
     
-    # Usa a função markdown do Streamlit para exibir uma string HTML na interface do Streamlit
-    st.markdown("<h1 style='text-align: center; color: blue;'>FGV EMAP</h1>", unsafe_allow_html=True)
+    # Configura uma caixa no Streamlit. A primeira opção padrão é solicitada ao usuário digitar ou selecionar uma opção.
+    unique_cargos_list = ["Digite ou selecione um cargo"] + list(unique_cargos)
+    cargoInput = st.selectbox("Cargo:", unique_cargos_list)
 
-    # Cria uma lista com os nomes dos professores, com a opção de digitar ou selecionar um professor
-    teachers_names = ["Digite ou selecione um professor"] + list(teachers.keys())
-    teacher_input = st.selectbox("Professor:", teachers_names)  # Cria um menu de seleção para os professores na interface do Streamlit
+    if cargoInput != "Digite ou selecione um cargo":
+        for element in elements:
+            cargo = element.get_attribute('innerHTML').lower().strip()
+            if cargoInput in cargo:
+                nome = element.get_attribute('href').split('/')[-1]
+                teachers[nome] = element.get_attribute('href')
 
-    # Verifica se uma opção válida foi selecionada
-    if teacher_input != "Digite ou selecione um professor":
-        st.write(f"Raspando dados por {teacher_input}...")  # Exibe uma mensagem indicando que os dados estão sendo raspados
-        link = teachers[teacher_input]  # Recupera o link para a página do professor selecionado
-        driver.get(link)  # Navega até a página do professor
+        teachers_names = ["Digite ou selecione um integrante"] + [name.replace("-", " ").title() for name in teachers.keys()]
+        nomeInput = st.selectbox("Integrante:", teachers_names)
 
-        # Usa o Selenium para localizar a foto do professor e o e-mail na página
-        img_url = driver.find_element(By.CSS_SELECTOR, 'img.img-fluid.mb-3.image-style-square-300x300').get_attribute('src')
-        email = driver.find_element(By.CSS_SELECTOR, "a[href^='mailto:']").get_attribute('href').split("mailto:",1)[1]
+        if nomeInput != "Digite ou selecione um integrante":
+            dados = list()
+            for nome, link in teachers.items():
+                nome = nome.replace("-", " ").title()
+                if nomeInput.lower() in nome.lower():
+                    st.write(f"Raspando dados de {nome}...")
+                    driver.get(link)
 
-        # Localiza os parágrafos com informações sobre o professor na página
-        info_para = driver.find_elements(By.CSS_SELECTOR, "div.gray-border-bottom-2.pb-2.mb-4.field__item p")
+                    img_url = driver.find_element(By.CSS_SELECTOR, 'img.img-fluid.mb-3.image-style-square-300x300').get_attribute('src')
+                    email = driver.find_element(By.CSS_SELECTOR, "a[href^='mailto:']").get_attribute('href').split("mailto:",1)[1]
 
-        # Lê a lista de palavras-chave de um arquivo
-        keywords = []
-        with open('keywords.txt', 'r') as file:
-            keywords = [line.strip() for line in file.readlines()]  # Armazena cada linha do arquivo como um item na lista 'keywords'
+                    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.gray-border-bottom-2.pb-2.mb-4.field__item p")))
+                    infoPara = driver.find_elements(By.CSS_SELECTOR, "div.gray-border-bottom-2.pb-2.mb-4.field__item p")
 
-        info_dict = dict()  # Cria um dicionário para armazenar as informações extraídas sobre o professor
+                    with open('keywords.txt', 'r') as f:
+                        keywords = [line.strip().lower() for line in f]
 
-        # Itera sobre cada parágrafo de informações na página
-        for para in info_para:
-            text = para.text  # Obtém o texto do parágrafo
-            words = text.split()  # Separa o texto em palavras
+                    sentences = list()
+                    for para in infoPara:
+                        texto = para.text
+                        sentences.extend(re.split(r'(?<=[.!?]) +', texto))
 
-            # Itera sobre cada palavra no parágrafo
-            for word in words:
-                word = re.sub(r'\W+', '', word)  # Remove qualquer caractere não alfabético
-                if word in keywords:  # Verifica se a palavra está na lista de palavras-chave
-                    if word in info_dict:
-                        info_dict[word] += 1  # Incrementa a contagem para a palavra-chave no dicionário
-                    else:
-                        info_dict[word] = 1  # Inicia uma nova entrada no dicionário para a palavra-chave
+                    bullet_points = []
+                    keyword_found = False
+                    for sentence in sentences:
+                        if any(keyword in sentence.lower() for keyword in keywords):
+                            bullet_points.append(sentence.strip())
+                            keyword_found = True
 
-        # Exibe a foto do professor na interface do Streamlit
-        st.image(img_url, width=300)
-        # Exibe o email do professor na interface do Streamlit
-        st.write(f"Email: {email}")
-        # Exibe as informações sobre o professor na interface do Streamlit como uma tabela
-        st.table(pd.DataFrame(info_dict.items(), columns=['Palavra-chave', 'Frequência']))
+                    if not keyword_found:
+                        bullet_points = sentences
 
-    # Finaliza o driver do Selenium
-    driver.quit()
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.image(img_url)
+                    with col2:
+                        st.write(f"Informações sobre {nome}:")
+                        for bullet in bullet_points:
+                            st.write("- " + bullet.capitalize())
+                        if email != "ecmi@fgv.br":
+                            st.write(f"Email: {email}")
+                        st.write(f"Veja no site do corpo docente da ECMI: {link}")
 
-if __name__ == "__main__":
-    app()
+                    dados.append({"Nome": nome, "Sentenças": bullet_points, "Email": email})
+
+            driver.quit()
+
+            df = pd.DataFrame(dados)
+            df.to_csv("scraped_data.csv", index=False)
