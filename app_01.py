@@ -95,7 +95,7 @@ def app(): # Define a função principal do aplicativo.
                         st.write(f"Informações sobre {nome}:") # sequencia de chamadas st.write() que criam elementos texto na segunda coluna que incluem o nome do prof, os bullet points, email do prof, e o link para o perfil deles no site do corpo docente da ecmi.
                         for bullet in bullet_points:
                             st.write("- " + bullet.capitalize())
-                        if email != "ecmi@fgv.br":
+                        if email != "ecmi@fgv.br": # Se o professor tem um e-mail, exibe o e-mail. ecmi@fgv.br é disponibilizado qnd o integrante/professor não tem um email.
                             st.write(f"Email: {email}")
                         st.write(f"Veja no site do corpo docente da ECMI: {link}")
                         # adiciona um dicionario com os dados do professor atual à lista dados, que inclui o nome, bullet points e email.
