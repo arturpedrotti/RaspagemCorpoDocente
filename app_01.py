@@ -52,20 +52,20 @@ def app():
             dados = list() #criando uma lista vazia
             for nome, link in teachers.items(): # itera sobre os itens no dicionario teachers, desempacoteia cada par valor-chave no dicionario em variaveis (nome e link). O nome representa o nome do integrante, link o url da pagina.
                 nome = nome.replace("-", " ").title() # Substitui os hyphens no nome do professor com espaço, e capitaliza a primeira letra de cada palavra.
-                if nomeInput.lower() in nome.lower(): # checa para vr se o nomeInput esta presente no nome (tudo convertido para minusculo).
+                if nomeInput.lower() in nome.lower():
+                    # checa para vr se o nomeInput esta presente no nome (tudo convertido para minusculo).
                     st.write(f"Raspando dados de {nome}...") # disponibiliza uma mensagem indicando que os dados estão sendo raspados.
                     driver.get(link) # Navega até o url da pagina do integrante e abre o para fazer a raspagem.
-
                     # utilizando selenium para localizar a foto do integrante no site usando o CSS selector. Quando ele localiza a imagem, o .get_attribute('src') é utilizado para extrair o url da imagem que é guardado dentro da variável img_url.
                     img_url = driver.find_element(By.CSS_SELECTOR, 'img.img-fluid.mb-3.image-style-square-300x300').get_attribute('src')
                     
                     # Utilizando selenium para localizar o email do integrante na pagina, o CSS selector localiza o hyperlink que tem um href que começa com (^=) malito:. Quando o elemento é localizado o .get_attribute('href') extrai o valor do href apos o malito: que é onde o email é contido. Isso é guardado dentro da variavel email.
                     email = driver.find_element(By.CSS_SELECTOR, "a[href^='mailto:']").get_attribute('href').split("mailto:",1)[1]
-
+                    
                     # localiza e extrai a informação da pagina dos integrantes, primeiro espera até o elemento que contem os paragrafos esta presente na pagina, depois utiliza selenium para localizar todos os paragrafos (<p>) dentro do elemento, e guarda isso dentro da variavel infoPara.
                     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.gray-border-bottom-2.pb-2.mb-4.field__item p")))
                     infoPara = driver.find_elements(By.CSS_SELECTOR, "div.gray-border-bottom-2.pb-2.mb-4.field__item p")
-
+                    
                     # Abre uma lista de keywords, o with open é mais prático que open() pois não precisa dar close()... 
                     with open('keywords.txt', 'r') as f:
                         keywords = [line.strip().lower() for line in f] # remove whitespace e é convertido para lowercase, e é guardado dentro da variavel keywords.
