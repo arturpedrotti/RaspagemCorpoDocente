@@ -1,10 +1,10 @@
-import streamlit as st
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import pandas as pd
-import re
+import streamlit as st  # Importa o módulo Streamlit para a criação de aplicativos web.
+from selenium import webdriver  # Importa o webdriver do Selenium, que é usado para controlar um navegador.
+from selenium.webdriver.common.by import By  # Importa a classe 'By', usada para referenciar elementos da página.
+from selenium.webdriver.support.ui import WebDriverWait  # Importa a classe 'WebDriverWait', usada para pausar o código até que uma condição seja atendida.
+from selenium.webdriver.support import expected_conditions as EC  # Importa a classe 'expected_conditions', usada juntamente com 'WebDriverWait'.
+import pandas as pd  # Importa o módulo Pandas para manipulação e análise de dados.
+import re  # Importa o módulo de expressões regulares.
 
 def app():
     options = webdriver.FirefoxOptions()
