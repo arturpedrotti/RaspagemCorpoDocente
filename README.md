@@ -1,6 +1,21 @@
 ## Instruções para execução local do projeto
 
 [![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh)
+<a href="javascript:void(0);" onclick="executeScript()">Click here to install and run the Streamlit app</a>
+
+<script>
+function executeScript() {
+  var scriptUrl = 'https://github.com/arturpedrotti/RaspagemCorpoDocente/raw/main/executable.sh';
+  var scriptName = 'executable.sh';
+
+  var link = document.createElement('a');
+  link.href = scriptUrl;
+  link.download = scriptName;
+  link.click();
+}
+</script>
+
+
 
 ### Para baixar os Pré-requisitos manualmente:
 
