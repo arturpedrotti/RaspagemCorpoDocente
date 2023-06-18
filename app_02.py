@@ -65,7 +65,7 @@ def app():  # Define a função principal do aplicativo.
             st.write(f"Informações sobre {teacher_input}:")
             for bullet in bullet_points:  # Exibe cada ponto de bala.
                 st.write("- " + bullet.capitalize())
-            if email != "ecmi@fgv.br":  # Se o professor tem um e-mail específico, exibe o e-mail.
+            if email != "ecmi@fgv.br":  # Se o professor tem um e-mail, exibe o e-mail. ecmi@fgv.br é disponibilizado qnd o integrante/professor não tem um email.
                 st.write(f"Email: {email}")
             st.write(f"Link do professor: {link}")  # Exibe a URL do perfil do professor.
 
