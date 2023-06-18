@@ -1,11 +1,8 @@
 ## Instruções para execução local do projeto
 
-[![Download](https://img.shields.io/badge/Download-Executable-green.svg)](https://gist.github.com/arturpedrotti/d4eb5d72066d21d966b026edd86d8b44)
-
----
 
 
-### Para baixar os Pré-requisitos manualmente:
+### Para baixar os Pré-requisitos:
 
 
 Antes de começar, verifique se tem instalados os seguintes programas:
