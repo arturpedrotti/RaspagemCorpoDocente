@@ -1,3 +1,6 @@
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-%E2%AD%90-lightgrey)
+
 # FGV Faculty Scraper
 
 A modular web application built with Streamlit in Python to scrape and display public faculty data from FGV's ECMI and EMAP departments.
