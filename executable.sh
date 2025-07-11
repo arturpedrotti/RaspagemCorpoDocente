@@ -24,4 +24,4 @@ command -v firefox >/dev/null 2>&1 || {
 pip install -r requirements.txt || { echo >&2 "Failed to install dependencies. Aborting."; exit 1; }
 
 # Start the Streamlit app
-streamlit run main.py
+streamlit run raspagemMain.py
